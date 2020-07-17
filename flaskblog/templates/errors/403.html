@@ -1,0 +1,11 @@
+{% extends "error_layout.html" %}
+
+{% block content %}
+  <div class="content-section z-depth-1 p-5">
+    <h1><span>4</span><span>0</span><span>3</span></h1>
+    <h3>Access Denied</h3>
+    <p>It's 403, you're not meant to be here, maybe using the account with the permission may help you access this page. Use the magic button below to teleport back to our homepage, which open to everyone, I suppose</p>
+    <a href="{{ url_for('home') }}" class="btn btn-outline-primary waves-effect ">MAGIC BUTTON</a>
+  </div>
+
+{% endblock content %}

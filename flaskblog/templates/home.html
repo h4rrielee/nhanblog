@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}
+    <h1>Home Page</h1>
+{% endblock title %}
+{% block content %}
+    {% for post in posts.items %}
+        <article class="media content-section z-depth-1">
+          <div class="image_article">
+            <img class="img_custom" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+          </div>
+           <div class="media-body">
+            <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+            <div class="article-metadata mb-3">
+              By
+              <a class="article-author" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+              on
+              <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+            </div>
+            <p class="article-content">{{ post.short_content }} <a href="{{ url_for('post', post_id=post.id) }}">Read more</a></p>
+          </div>
+        </article>
+    {% endfor %}
+    <nav aria-label="Page navigation example">
+      <ul class="pagination pg-blue">
+      {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+          {% if posts.page == page_num %}
+            <li class="page-item active"><a class="page-link" href="{{ url_for('home', page=page_num) }}">{{  page_num }} <span class="sr-only">(current)</span></a></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('home', page=page_num) }}">{{  page_num }}</a></li>
+          {% endif %}
+        {% else %}
+          ...
+        {% endif %}
+      {% endfor %}
+      </ul>
+    </nav>
+{% endblock content %}
+

@@ -1,0 +1,11 @@
+{% extends "error_layout.html" %}
+
+{% block content %}
+  <div class="content-section z-depth-1 p-5">
+    <h1><span>4</span><span>0</span><span>4</span></h1>
+    <h3>YUP! You are right, It's the legendary 404 NOT FOUND.</h3>
+    <p>I don't know how you get here, maybe you mispelled, maybe this page is yet to be created, whatever but you might want to head back to our home page using that magic button below</p>
+    <a href="{{ url_for('home') }}" class="btn btn-outline-primary waves-effect ">MAGIC BUTTON</a>
+  </div>
+
+{% endblock content %}

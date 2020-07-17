@@ -1,0 +1,11 @@
+{% extends "error_layout.html" %}
+
+{% block content %}
+  <div class="content-section z-depth-1 p-5">
+    <h1><span>5</span><span>0</span><span>0</span></h1>
+    <h3>Internal Server Error</h3>
+    <p>Alright! It's our fault this time but you can't do anything but click the magic button below which will teleport to an error-less homepage, I think!</p>
+    <a href="{{ url_for('home') }}" class="btn btn-outline-primary waves-effect ">MAGIC BUTTON</a>
+  </div>
+
+{% endblock content %}
