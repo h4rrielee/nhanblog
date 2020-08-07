@@ -70,3 +70,9 @@ class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Post')
+
+
+class PersonalMessage(FlaskForm):
+    target = StringField('Insert your crush name', validators=[DataRequired()])
+    submit = SubmitField('Get your personalised link')
+

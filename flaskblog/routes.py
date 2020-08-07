@@ -1,12 +1,16 @@
 from flask import render_template, url_for, flash, redirect, request, abort
 from flaskblog import app, db, bcrypt, mail
-from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, ChangePasswordForm
+from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, ChangePasswordForm, PersonalMessage
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 import secrets
 import os
 from PIL import Image
 from flask_mail import Message
+
+@app.route('/khanhtrang')
+def iluvu():
+    return render_template('iluvu.html')
 
 @app.route('/')
 @app.route('/home')
@@ -47,17 +51,18 @@ If you did not make this request then simply ignore this email and no changes wi
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
-        flash(f'Your account has been created! You can now log in with your email and password!', 'success')
-        return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+    abort(403)
+    # if current_user.is_authenticated:
+    #     return redirect(url_for('home'))
+    # form = RegistrationForm()
+    # if form.validate_on_submit():
+    #     hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+    #     user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+    #     db.session.add(user)
+    #     db.session.commit()
+    #     flash(f'Your account has been created! You can now log in with your email and password!', 'success')
+    #     return redirect(url_for('login'))
+    # return render_template('register.html', title='Register', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -157,7 +162,7 @@ def changepassword():
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        short_content = form.content.data[:350]
+        short_content = form.content.data[:250]
         post = Post(title=form.title.data, content=form.content.data, author=current_user, short_content=short_content)
         db.session.add(post)
         db.session.commit()
@@ -226,3 +231,32 @@ def account():
     user = current_user
     posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     return render_template('user_posts.html', posts=posts, user=user)
+
+@app.route('/iloveyou/<string:name>')
+def iloveyou(name):
+    newname = name.replace('-', ' ')
+    target = newname.title()
+    return render_template('iluvu.html', target=target)
+
+@app.route('/iloveyou', methods=['GET', 'POST'])
+def getiloveyou():
+    form = PersonalMessage()
+    if form.validate_on_submit():
+        name = form.target.data
+        links = "www.thanhnhanle.site/iloveyou/" + name.replace(' ', '-')
+    elif request.method == 'GET':
+        links = ""
+    return render_template('iluvu.html', form=form, demo=True, link=links)
+
+@app.route('/wholesome')
+def wholesome():
+    text = 'Hello'
+    return render_template('wholesome.html', text=text)
+
+@app.route('/wholesome/<string:name>')
+def wholesomeperson(name):
+    newname = name.replace('-', ' ')
+    target = newname.title()
+    text = 'Hey ' + target
+    return render_template('wholesome.html', text=text)
+

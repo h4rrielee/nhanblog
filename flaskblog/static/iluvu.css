@@ -1,0 +1,132 @@
+@mixin flex-center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+$col-bg: #FFC568;
+$col-lttr: #763C8C;
+$col-line: #FFFFFF;
+$to-mobile: 520px;
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100vh;
+  @include flex-center();
+
+  background-color: $col-bg;
+  font-size: 62.5%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  @media screen and (max-width: $to-mobile) {
+    /* don't know how to set default units to rem in mojs :(( */
+  }
+}
+
+.container {
+  width: 50rem;
+  height: 20rem;
+  position: relative;
+}
+
+.svg-container {
+  z-index: 2;
+  position: absolute;
+}
+
+.mo-container {
+  width: 100%;
+  height: 100%;
+}
+
+
+.line {
+  fill: none;
+  stroke: #FFFFFF;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+}
+
+.lttr {
+  fill: #763C8C;
+}
+
+.sound {
+  position: fixed;
+  color: $col-lttr;
+  font-size: 1.6rem;
+  bottom: 1rem;
+  right: 1rem;
+  text-decoration: underline;
+  cursor: default;
+  &--off {
+    text-decoration: line-through;
+  }
+}
+
+.lovecontainer{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.target{
+  font-size: 30px;
+  color: #FFFFFF;
+  font-family: 'Pacifico', cursive;
+}
+
+.formlinklabel{
+  font-size: 20px;
+  color: #FFFFFF;
+  font-family: 'Pacifico', cursive;
+}
+
+.targetlink{
+  font-size: 15px;
+  color: #FFFFFF;
+  font-family: 'Pacifico', cursive;
+}
+
+.formlinkbutton{
+  font-size: 10px;
+  color: #FFFFFF;
+  font-family: 'Pacifico', cursive;
+}
+
+.intro{
+  display: flex;
+}
+
+.typing{
+  position: relative;
+  margin-left: 5px;
+}
+
+.typing::after{
+  content: "";
+  position: absolute;
+  right: -5px;
+  width: 1px;
+  height: 90%;
+  border-right: 2px solid white;
+  animation: blink 0.5s infinite ease;
+}
+
+@keyframes blink {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
